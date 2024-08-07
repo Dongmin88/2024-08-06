@@ -1,36 +1,45 @@
 import requests, uuid, json
 
-# Add your key and endpoint
-key = 'acfb449d53c0463fb28abb71bbeb8ac8'
-endpoint = "https://api.cognitive.microsofttranslator.com/"
+class Translator:
+    def __init__(self):
+        self.key = 'acfb449d53c0463fb28abb71bbeb8ac8'
+        self.endpoint = "https://api.cognitive.microsofttranslator.com/"
+        self.location = "australiaeast"
+        self.path = '/translate'
+        self.constructed_url = self.endpoint + self.path
+    
+    def translate(self, text, from_lang='en', to_lang='ko'):
+        params = {
+            'api-version': '3.0',
+            'from': from_lang,
+            'to': [to_lang]
+        }
 
-# location, also known as region.
-# required if you're using a multi-service or regional (not global) resource. It can be found in the Azure portal on the Keys and Endpoint page.
-location = "australiaeast"
+        headers = {
+            'Ocp-Apim-Subscription-Key': self.key,
+            'Ocp-Apim-Subscription-Region': self.location,
+            'Content-type': 'application/json',
+            'X-ClientTraceId': str(uuid.uuid4())
+        }
 
-path = '/translate'
-constructed_url = endpoint + path
+        body = [{'text': text}]
 
-params = {
-    'api-version': '3.0',
-    'from': 'en',
-    'to': ['ko']
-}
+        request = requests.post(self.constructed_url, params=params, headers=headers, json=body)
+        response = request.json()
+        return response
+    
+    def pretty_print(self, response):
+        print(json.dumps(response, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': ')))
+    
+    def get_translated_text(self, response):
+        translated_text = response[0]['translations'][0]['text']
+        return translated_text
 
-headers = {
-    'Ocp-Apim-Subscription-Key': key,
-    # location required if you're using a multi-service or regional (not global) resource.
-    'Ocp-Apim-Subscription-Region': location,
-    'Content-type': 'application/json',
-    'X-ClientTraceId': str(uuid.uuid4())
-}
+# Usage example
+if __name__ == "__main__":
 
-# You can pass more than one object in body.
-body = [{
-    'text': 'I am so hungry. i want to have  lunch time.'
-}]
 
-request = requests.post(constructed_url, params=params, headers=headers, json=body)
-response = request.json()
-
-print(json.dumps(response, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': ')))
+    translator = Translator()
+    text_to_translate = "I am so hungry. I want to have lunch time."
+    response = translator.translate(text_to_translate)
+    print(translator.get_translated_text(response))
