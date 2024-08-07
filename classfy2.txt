@@ -1,0 +1,10 @@
+Geotechnical Engineering
+Example: Foundation Design for a High-Rise Building
+
+Components: Soil analysis, foundation type selection (e.g., shallow or deep foundations).
+Process:
+Soil Investigation: Conduct borehole drilling and soil sampling.
+Lab Testing: Analyze soil samples for properties like bearing capacity and shear strength.
+Foundation Design: Determine the appropriate foundation type (e.g., pile foundation for weak soils).
+Construction: Excavate the site, install piles or other foundation elements, and pour concrete.
+Monitoring: Use sensors and regular inspections to ensure foundation stability over time.
