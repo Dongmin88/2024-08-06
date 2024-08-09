@@ -20,9 +20,9 @@ class read_text:
             return "N/A"
         return ", ".join(["[{}, {}]".format(p.x, p.y) for p in bounding_box])
 
-    def analyze_read(self):
+    def analyze_read(self,url):
         # sample document
-        formUrl = "https://raw.githubusercontent.com/Azure-Samples/cognitive-services-REST-api-samples/master/curl/form-recognizer/sample-layout.pdf"
+        formUrl = url
 
         document_analysis_client = DocumentAnalysisClient(
             endpoint=self.endpoint, credential=AzureKeyCredential(self.key)

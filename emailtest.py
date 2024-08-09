@@ -90,7 +90,7 @@ def sample_analyze_conversation_app():
 
     # [END analyze_conversation_app]
 
-    print(f"Bot: {bot}")
+    # print(f"Bot: {bot}")
 
 if __name__ == '__main__':
     sample_analyze_conversation_app()
